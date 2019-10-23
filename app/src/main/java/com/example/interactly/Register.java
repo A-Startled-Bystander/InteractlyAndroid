@@ -57,23 +57,20 @@ public class Register extends AppCompatActivity {
     }
 
     private void SendReq(){
-        String sURL = "";
-        Log.d("Uhm Yeaaaaaa", "Made it ");
+        String sURL = "https://interactlyapi.azurewebsites.net/api/users/register";
 
         try{
-            Log.d("Uhm Yeaaaaaa", "Attempting ");
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("username",sName);
             jsonBody.put("password", sPass);
             jsonBody.put("email", sEmail);
-
-            Log.d("Uhm Yeaaaaaa", "Alriught ");
 
             JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, sURL, jsonBody, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     Toast toast = Toast.makeText(getApplicationContext(),"Success", Toast.LENGTH_SHORT);
                     toast.show();
+
                 }
             }, new Response.ErrorListener() {
                 @Override
