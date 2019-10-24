@@ -97,14 +97,14 @@
         app:layout_constraintTop_toBottomOf="@+id/lblOr" />
 
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnLogin"
         android:layout_width="101dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Sign In"
+        android:text="Log In"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +113,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btnCreate"
+        android:id="@+id/btnRegister"
         android:layout_width="101dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
@@ -124,7 +124,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <TextView
         android:id="@+id/lblSurveyCode"
@@ -137,7 +137,7 @@
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <EditText
-        android:id="@+id/txtSurveyCode"
+        android:id="@+id/edtLCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -146,7 +146,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnGo"
+        app:layout_constraintEnd_toStartOf="@+id/btnLGo"
         app:layout_constraintStart_toEndOf="@+id/lblNumber"
         app:layout_constraintTop_toBottomOf="@+id/lblSurveyCode" />
 
@@ -159,10 +159,10 @@
         android:text="#"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="@+id/txtSurveyCode" />
+        app:layout_constraintTop_toTopOf="@+id/edtLCode" />
 
     <Button
-        android:id="@+id/btnGo"
+        android:id="@+id/btnLGo"
         android:layout_width="54dp"
         android:layout_height="37dp"
         android:layout_marginTop="16dp"

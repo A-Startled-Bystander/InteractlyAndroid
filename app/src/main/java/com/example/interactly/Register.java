@@ -1,12 +1,14 @@
 package com.example.interactly;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,7 +22,7 @@ import org.json.JSONObject;
 public class Register extends AppCompatActivity {
     private String sName,sEmail,sPass,sConfirmPass;
     TextView txtName,txtEmail,txtPass,txtConfirmPass;
-
+    Button btnSubmit, btnRCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +32,12 @@ public class Register extends AppCompatActivity {
     }
 
     private void Init(){
-        Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
-        txtName = (TextView) findViewById(R.id.txtUsername);
-        txtEmail = (TextView) findViewById(R.id.txtEmail);
-        txtPass = (TextView) findViewById(R.id.txtPassword);
-        txtConfirmPass = (TextView) findViewById(R.id.txtConfirmPass);
+        btnSubmit = findViewById(R.id.btnRSubmit);
+        btnRCancel = findViewById(R.id.btnRCancel);
+        txtName = findViewById(R.id.txtUsername);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtPass = findViewById(R.id.txtPassword);
+        txtConfirmPass = findViewById(R.id.txtConfirmPass);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,14 +47,31 @@ public class Register extends AppCompatActivity {
                 sPass = txtPass.getText().toString();
                 sConfirmPass = txtConfirmPass.getText().toString();
 
-                if (sPass.equals(sConfirmPass)){
-                    SendReq();
-                }else{
-                    Toast toast = Toast.makeText(getApplicationContext(),"Password must match", Toast.LENGTH_SHORT);
-                    toast.show();
-                    txtConfirmPass.setText("");
-                    txtPass.setText("");
-                }
+                if(sName!="") {
+                    if(sEmail!=""){
+                        if(sPass!="") {
+                            if (sPass.equals(sConfirmPass)) {
+                                SendReq();
+                                Intent intent = new Intent(Register.this, Login.class);
+                                startActivity(intent);
+
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Password must match", Toast.LENGTH_SHORT);
+                                toast.show();
+                                txtConfirmPass.setText("");
+                                txtPass.setText("");
+                            }
+                        }else{Toast.makeText(Register.this, "Please enter a Password", Toast.LENGTH_SHORT).show();}
+                    }else{Toast.makeText(Register.this, "Please enter a Email", Toast.LENGTH_SHORT).show();}
+                }else{Toast.makeText(Register.this, "Please enter a Username", Toast.LENGTH_SHORT).show();}
+            }
+        });
+
+        btnRCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register.this, Login.class);
+                startActivity(intent);
             }
         });
     }
@@ -68,14 +88,14 @@ public class Register extends AppCompatActivity {
             JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, sURL, jsonBody, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Toast toast = Toast.makeText(getApplicationContext(),"Success", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),"You have successfully created an account", Toast.LENGTH_SHORT);
                     toast.show();
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast toast = Toast.makeText(getApplicationContext(),"No Success", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),"Error creating account", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             });
