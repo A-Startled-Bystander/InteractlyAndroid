@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home" android:title="Home" android:icon="@drawable/home"/>
+    <item android:id="@+id/profile" android:title="Profile" android:icon="@drawable/person"/>
+
+    <item android:id="@+id/qna" android:title="Q+A" android:icon="@drawable/qna"/>
+    <item android:id="@+id/survey" android:title="Survey" android:icon="@drawable/survey"/>
+    <item android:id="@+id/polls" android:title="Polls" android:icon="@drawable/poll"/>
+    <item android:id="@+id/logout" android:title="Logout" android:icon="@drawable/exit"/>
+</menu>
