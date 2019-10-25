@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/home" android:title="Home" android:icon="@drawable/home"/>
-    <item android:id="@+id/profile" android:title="Profile" android:icon="@drawable/person"/>
 
-    <item android:id="@+id/qna" android:title="Q+A" android:icon="@drawable/qna"/>
-    <item android:id="@+id/survey" android:title="Survey" android:icon="@drawable/survey"/>
-    <item android:id="@+id/polls" android:title="Polls" android:icon="@drawable/poll"/>
-    <item android:id="@+id/logout" android:title="Logout" android:icon="@drawable/exit"/>
+    <group android:id="@+id/group_home">
+        <item android:id="@+id/home" android:title="Home" android:textStyle="bold" android:icon="@drawable/home"/>
+        <item android:id="@+id/profile" android:title="Profile" android:textStyle="bold" android:icon="@drawable/person"/>
+    </group>
+
+    <item android:title="Features">
+        <menu>
+            <item android:id="@+id/qna" android:title="Q+A" android:textStyle="bold" android:icon="@drawable/qna"/>
+            <item android:id="@+id/survey" android:title="Survey" android:textStyle="bold" android:icon="@drawable/survey"/>
+            <item android:id="@+id/polls" android:title="Polls" android:textStyle="bold" android:icon="@drawable/poll"/>
+
+        </menu>
+    </item>
+
+
+    <group android:id="@+id/group_logout">
+        <item android:id="@+id/logout" android:title="Logout" android:textStyle="normal" android:icon="@drawable/exit"/>
+    </group>
+
+
+
 </menu>

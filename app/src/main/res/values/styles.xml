@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    //theme for login page (No action bar) Child of AppTheme
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name= "windowNoTitle">true</item>
+    </style>
+
 </resources>
