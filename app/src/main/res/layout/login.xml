@@ -7,23 +7,39 @@
     android:background="@color/white"
     tools:context=".Login">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="268dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="8dp"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/logo"
+        android:text="Interactly.io"
+        android:textSize="50dp"
+        android:textFontWeight="bold"
+        android:textColor="@color/colorBlue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/logocircle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
     <View
         android:id="@+id/view"
-        android:layout_width="309dp"
-        android:layout_height="236dp"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
@@ -36,19 +52,20 @@
         android:id="@+id/lblLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:text="Login"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textSize="24dp"
+        android:textColor="@color/colorGreen"
+        android:textFontWeight="bold"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/view" />
 
     <EditText
         android:id="@+id/txtName"
-        android:layout_width="236dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/border"
+        android:layout_width="237dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Enter name"
         android:inputType="textPersonName"
@@ -62,8 +79,7 @@
         android:id="@+id/txtPassword"
         android:layout_width="237dp"
         android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/border"
+        android:layout_marginTop="14dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -72,41 +88,30 @@
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
-    <TextView
-        android:id="@+id/lblOr"
-        android:layout_width="49dp"
-        android:layout_height="19dp"
+    <View
+        android:id="@+id/view3"
+        android:layout_width="360dp"
+        android:layout_height="90dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        android:text="-- OR --"
+        android:background="@drawable/border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="291dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblOr" />
-
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="101dp"
-        android:layout_height="36dp"
+        android:layout_width="255dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Log In"
-        android:textSize="12sp"
+        android:background="@color/colorGreen"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,62 +120,57 @@
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="101dp"
-        android:layout_height="36dp"
+        android:layout_width="255dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="Create"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        android:background="@color/colorBlue"
+        android:text="Register"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <TextView
-        android:id="@+id/lblSurveyCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Enter A Survey Code"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <EditText
         android:id="@+id/edtLCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="Enter a survey code"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnLGo"
-        app:layout_constraintStart_toEndOf="@+id/lblNumber"
-        app:layout_constraintTop_toBottomOf="@+id/lblSurveyCode" />
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <TextView
         android:id="@+id/lblNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:text="#"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/view3"
+        android:textColor="@color/colorGreen"
+        android:textFontWeight="bold"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/edtLCode"
         app:layout_constraintTop_toTopOf="@+id/edtLCode" />
 
     <Button
         android:id="@+id/btnLGo"
-        android:layout_width="54dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="69dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/buttongreen"
         android:text="Go"
-        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/lblSurveyCode" />
+        app:layout_constraintTop_toTopOf="@+id/view3" />
 
 </android.support.constraint.ConstraintLayout>
