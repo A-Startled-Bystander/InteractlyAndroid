@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lblPassword" />
 
     <EditText
-        android:id="@+id/txtUsername"
+        android:id="@+id/txtRUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lblRegistration" />
 
     <EditText
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtREmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -93,29 +93,18 @@
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintStart_toEndOf="@+id/lblEmail"
-        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/txtRUsername" />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/txtRConfirmPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toEndOf="@+id/lblPassword"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
-
-    <EditText
-        android:id="@+id/txtConfirmPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintStart_toEndOf="@+id/lblPassConfirm"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtRPassword" />
 
     <Button
         android:id="@+id/btnRCancel"
@@ -135,5 +124,17 @@
         android:layout_marginEnd="76dp"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtConfirmPass" />
+        app:layout_constraintTop_toBottomOf="@+id/txtRConfirmPass" />
+
+    <EditText
+        android:id="@+id/txtRPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toEndOf="@+id/lblPassword"
+        app:layout_constraintTop_toBottomOf="@+id/txtREmail" />
+
 </android.support.constraint.ConstraintLayout>

@@ -62,7 +62,7 @@
         app:layout_constraintTop_toTopOf="@+id/view" />
 
     <EditText
-        android:id="@+id/txtName"
+        android:id="@+id/txtLName"
         android:layout_width="237dp"
         android:layout_height="39dp"
         android:layout_marginTop="15dp"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lblLogin" />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/txtLPassword"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginTop="14dp"
@@ -86,7 +86,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLName" />
 
     <View
         android:id="@+id/view3"
@@ -107,7 +107,7 @@
         android:layout_width="255dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorGreen"
@@ -117,7 +117,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/txtLPassword"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button

@@ -34,10 +34,10 @@ public class Register extends AppCompatActivity {
     private void Init(){
         btnSubmit = findViewById(R.id.btnRSubmit);
         btnRCancel = findViewById(R.id.btnRCancel);
-        txtName = findViewById(R.id.txtUsername);
-        txtEmail = findViewById(R.id.txtEmail);
-        txtPass = findViewById(R.id.txtPassword);
-        txtConfirmPass = findViewById(R.id.txtConfirmPass);
+        txtName = findViewById(R.id.txtRUsername);
+        txtEmail = findViewById(R.id.txtREmail);
+        txtPass = findViewById(R.id.txtRPassword);
+        txtConfirmPass = findViewById(R.id.txtRConfirmPass);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +91,22 @@ public class Register extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(),"You have successfully created an account", Toast.LENGTH_SHORT);
                     toast.show();
 
+
+
+                    // Retrieving JSON response
+                    String s = response.toString();
+                    try{
+
+                        JSONObject obj = new JSONObject(s);
+                        Log.d("WE CONVERTED IT: ", "Username and password: " + obj.get("username"));
+                    }
+                    catch(Exception ex){
+                        Log.d("MyFailTag", "COULDNT CONVERT THE HOE " + ex);
+                    }
+
+
+
+
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -102,6 +118,7 @@ public class Register extends AppCompatActivity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(objectRequest);
+
         }
         catch (Exception e){
             Log.d("Uhm Yeaaaaaa", "Somethings not right: ");
