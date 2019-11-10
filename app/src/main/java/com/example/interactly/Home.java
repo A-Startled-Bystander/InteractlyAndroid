@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -16,11 +17,17 @@ implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     //--
+    String sToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        //-- Get JWT Token
+        Intent intent = getIntent();
+        sToken = intent.getStringExtra("token");
+        Log.d("HERE WE GOOOOOOOO", "onCreate: " + sToken);
 
         //---MENU
         mDrawerLayout = findViewById(R.id.drawer);
@@ -56,7 +63,10 @@ implements NavigationView.OnNavigationItemSelectedListener {
                 startActivity(intent);
                 break;
             case R.id.profile:
-                Toast.makeText(this, "Start profile intent here", Toast.LENGTH_SHORT).show();
+                intent = new Intent(Home.this, Profile.class);
+                intent.putExtra("token", sToken);
+                startActivity(intent);
+
                 break;
             case R.id.qna:
                 Toast.makeText(this, "Start qna intent here", Toast.LENGTH_SHORT).show();

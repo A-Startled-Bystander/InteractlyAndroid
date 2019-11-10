@@ -82,27 +82,27 @@
         android:id="@+id/btnRCancel"
         android:layout_width="160dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="60dp"
         android:background="@color/colorBlue"
         android:text="Cancel"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRConfirmPass" />
 
     <Button
         android:id="@+id/btnRSubmit"
         android:layout_width="160dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="60dp"
         android:background="@color/colorGreen"
         android:text="Submit"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRConfirmPass" />
 
     <EditText
         android:id="@+id/txtRPassword"
