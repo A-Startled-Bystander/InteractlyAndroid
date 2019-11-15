@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Qna"></activity>
+        <activity android:name=".Polls"></activity>
+        <activity android:name=".Qna" />
         <activity android:name=".Profile" />
         <activity android:name=".Home" />
         <activity android:name=".Register" />
