@@ -4,49 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/mainbackground"
     tools:context=".Login">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:text="Interactly.io"
+        android:textColor="@color/white"
         android:textSize="50dp"
-        android:textFontWeight="bold"
-        android:textColor="@color/colorBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/logocircle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <View
         android:id="@+id/view"
         android:layout_width="360dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/border"
+        android:background="#55111111"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/lblLogin"
@@ -56,8 +42,7 @@
         android:layout_marginTop="16dp"
         android:text="Login"
         android:textSize="24dp"
-        android:textColor="@color/colorGreen"
-        android:textFontWeight="bold"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/view" />
 
@@ -70,6 +55,9 @@
         android:hint="Enter name"
         android:inputType="textPersonName"
         android:textSize="14sp"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/colorlightGrey"
+
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/view"
@@ -84,6 +72,8 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:textSize="14sp"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/colorlightGrey"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toBottomOf="@+id/txtLName" />
@@ -96,7 +86,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/border"
+        android:background="#55111111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,9 +117,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/colorBlue"
+        android:background="@drawable/buttonmainsquare"
         android:text="Register"
-        android:textColor="@color/white"
+        android:textColor="@color/colorGreen"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,6 +135,8 @@
         android:hint="Enter a survey code"
         android:inputType="textPersonName"
         android:textSize="14sp"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/colorlightGrey"
         app:layout_constraintEnd_toEndOf="@+id/view3"
         app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/view3" />
@@ -157,7 +149,6 @@
         android:layout_marginEnd="8dp"
         android:text="#"
         android:textColor="@color/colorGreen"
-        android:textFontWeight="bold"
         android:textSize="25sp"
         app:layout_constraintEnd_toStartOf="@+id/edtLCode"
         app:layout_constraintTop_toTopOf="@+id/edtLCode" />

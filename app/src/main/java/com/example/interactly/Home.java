@@ -60,16 +60,18 @@ implements NavigationView.OnNavigationItemSelectedListener {
         switch (item.getItemId()){
             case R.id.home:
                 intent = new Intent(Home.this, Home.class);
+                intent.putExtra("token", sToken);
                 startActivity(intent);
                 break;
             case R.id.profile:
                 intent = new Intent(Home.this, Profile.class);
                 intent.putExtra("token", sToken);
                 startActivity(intent);
-
                 break;
             case R.id.qna:
-                Toast.makeText(this, "Start qna intent here", Toast.LENGTH_SHORT).show();
+                intent = new Intent(Home.this, Qna.class);
+                intent.putExtra("token", sToken);
+                startActivity(intent);
                 break;
             case R.id.survey:
                 Toast.makeText(this, "Start survey intent here", Toast.LENGTH_SHORT).show();
@@ -81,10 +83,7 @@ implements NavigationView.OnNavigationItemSelectedListener {
                 intent = new Intent(Home.this, Login.class);
                 startActivity(intent);
                 break;
-            default:
-                intent = new Intent(Home.this, Home.class);
-                startActivity(intent);
-                break;
+
         }
         return true;
     }
