@@ -170,9 +170,13 @@ public class Profile extends AppCompatActivity {
                 Log.d("HERE", "ValidateData: I GO FALSE HERE");
                 bValue = false;
             }
+
+            if (!sPassword.equals(sConfirmPass)){
+                bValue = false;
+            }
         }
 
-        if ((!sEmail.contains("@")) && (!sEmail.contains(".com"))){
+        if ((!sEmail.contains("@")) || (!sEmail.contains(".com"))){
             Log.d("HERE", "ValidateData: I GO FALSE HERE2");
             bValue = false;
         }

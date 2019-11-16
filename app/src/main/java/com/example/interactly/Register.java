@@ -46,7 +46,19 @@ public class Register extends AppCompatActivity {
                 sPass = txtPass.getText().toString();
                 sConfirmPass = txtConfirmPass.getText().toString();
 
-                if(sName!="") {
+                Boolean bValue = ValidateData();
+                if (bValue){
+                    SendReq();
+                    Intent intent = new Intent(Register.this, Login.class);
+                    startActivity(intent);
+                }else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid Data", Toast.LENGTH_SHORT);
+                    toast.show();
+                    txtConfirmPass.setText("");
+                    txtPass.setText("");
+                }
+
+                /***if(sName!="") {
                     if(sEmail!=""){
                         if(sPass!="") {
                             if (sPass.equals(sConfirmPass)) {
@@ -62,7 +74,7 @@ public class Register extends AppCompatActivity {
                             }
                         }else{Toast.makeText(Register.this, "Please enter a Password", Toast.LENGTH_SHORT).show();}
                     }else{Toast.makeText(Register.this, "Please enter a Email", Toast.LENGTH_SHORT).show();}
-                }else{Toast.makeText(Register.this, "Please enter a Username", Toast.LENGTH_SHORT).show();}
+                }else{Toast.makeText(Register.this, "Please enter a Username", Toast.LENGTH_SHORT).show();} ***/
             }
         });
 
@@ -73,6 +85,24 @@ public class Register extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private boolean ValidateData(){
+        Boolean bValue = true;
+
+        if (sName.equals("") || (sEmail.equals("")) || (sPass.equals(""))){
+            bValue = false;
+        }
+        if ((sName.length()) < 3 || (sPass.length() < 8)){
+            bValue = false;
+        }
+        if (!sPass.equals(sConfirmPass)){
+            bValue = false;
+        }
+        if ((!sEmail.contains("@")) || (!sEmail.contains(".com"))){
+            bValue = false;
+        }
+        return bValue;
     }
 
     private void SendReq(){
