@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QnaSession">
+
+    <ListView
+        android:id="@+id/listSession"
+        android:layout_width="369dp"
+        android:layout_height="570dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="128dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view22"
+        android:layout_width="384dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/borderdark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSessionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Session Name"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/view22"
+        app:layout_constraintTop_toTopOf="@+id/view22" />
+
+    <TextView
+        android:id="@+id/txtSessionUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="by User"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view22"
+        app:layout_constraintTop_toBottomOf="@+id/txtSessionName" />
+
+</android.support.constraint.ConstraintLayout>

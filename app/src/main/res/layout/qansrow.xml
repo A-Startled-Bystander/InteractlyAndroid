@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/qSesName"
+            android:text="Name"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/Black"
+
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/qSesQuest"
+            android:text="Question?"
+            android:textSize="15dp"
+            android:textColor="@color/Black"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/qSesAns"
+            android:text="Answer"
+            android:textSize="15dp"
+            android:textColor="@color/Black"
+            android:layout_marginLeft="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSesAnswer"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonmain"
+        android:text="answer"
+        android:textColor="@color/colorGreen" />
+
+</LinearLayout>

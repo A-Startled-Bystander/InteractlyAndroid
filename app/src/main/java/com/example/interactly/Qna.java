@@ -29,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,8 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
     ListView listQ;
     List<String> titles = new ArrayList<String>();
     List<String> codes  = new ArrayList<String>();
+    List<Integer> ids = new ArrayList<Integer>();
+
     MyAdapter adapter;
 
 
@@ -66,9 +69,6 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
         btnNewQuestion = findViewById(R.id.btnNewQuestion);
         listQ = findViewById(R.id.listQuestions);
 
-        //get list content from database
-        ///
-
         adapter = new MyAdapter(this, titles, codes);
         listQ.setAdapter(adapter);
 
@@ -76,8 +76,15 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
         listQ.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               String title = listQ.getItemAtPosition(position).toString();
-               Toast.makeText(Qna.this, "This it item "+ title, Toast.LENGTH_SHORT).show();
+               //String title = listQ.getItemAtPosition(position).toString();
+
+               Intent intent = new Intent(Qna.this, QnaSession.class);
+               intent.putExtra("token", sToken);
+               intent.putExtra("user", user);
+               intent.putExtra("qnaID", ids.get(position).toString());
+               startActivity(intent);
+
+
            }
        });
 
@@ -107,21 +114,14 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
         else
             {
                 sQnaTitle = qnaTitle;
-                //reset lists to re add with new QnA
-
-
                 SendQnaCreateReq();
                 SendQuestionListReq();
-
         }
-
-
 
     }
 
     private void SendQnaCreateReq(){
-        titles.clear();
-        codes.clear();
+
 
         String sURL = "https://interactlyapi.azurewebsites.net/api/qna/create";
 
@@ -136,10 +136,6 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
                     Toast toast = Toast.makeText(getApplicationContext(),"You have successfully hosted a QnA", Toast.LENGTH_SHORT);
                     toast.show();
 
-
-
-
-
                     // Retrieving JSON response
                     String s = response.toString();
                     try{
@@ -150,9 +146,6 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
                     catch(Exception ex){
                         Log.d("MyFailTag", "COULDNT CONVERT THE HOE " + ex);
                     }
-
-
-
 
                 }
             }, new Response.ErrorListener() {
@@ -184,6 +177,10 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
     }
 
     public void SendQuestionListReq(){
+        titles.clear();
+        codes.clear();
+        ids.clear();
+
         String sUrl = "https://interactlyapi.azurewebsites.net/api/qna/sessions?username="+user;
 
         try{
@@ -202,9 +199,11 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
 
                             String name = qna.getString("name");
                             String code = qna.getString("eventCode");
+                            int id = qna.getInt("qnaId");
 
                             titles.add(name);
                             codes.add(code);
+                            ids.add(id);
                         }
                         adapter.notifyDataSetChanged();
 
