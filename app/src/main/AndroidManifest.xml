@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Qna"></activity>
-        <activity android:name=".Profile" />
+        <activity
+            android:name=".Profile"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".Home" />
         <activity android:name=".Register" />
         <activity
