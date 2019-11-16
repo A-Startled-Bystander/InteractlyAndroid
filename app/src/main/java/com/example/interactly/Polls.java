@@ -16,40 +16,43 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Qna extends AppCompatActivity
-{
 
+public class Polls extends AppCompatActivity
+{
+    //Global variable
     String sToken;
     ListView listQ;
     String titles[] = {"Test 1", "Test 2"};
     String descriptions[] = {"Description 1", "Description 2"};
-
-
+    //
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.qna);
+        setContentView(R.layout.polls);
 
         //-- Get JWT Token
         Intent intent = getIntent();
         sToken = intent.getStringExtra("token");
-        Log.d("HERE WE GOOOOOOOO", "onCreate: " + sToken);
+        Log.d("JWT token", "onCreate: " + sToken);
 
         listQ = findViewById(R.id.listQuestions);
         //get list content from database
         ///
 
-        MyAdapter adapter = new MyAdapter(this, titles, descriptions);
-        listQ.setAdapter(adapter);
 
-        //when clicked, go to answer question
-        listQ.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               String title = listQ.getItemAtPosition(position).toString();
-               Toast.makeText(Qna.this, "This it item "+ title, Toast.LENGTH_SHORT).show();
-           }
-       });
+        MyAdapter myAdapter = new MyAdapter(this, titles, descriptions);
+        listQ.setAdapter(myAdapter);
+
+        listQ.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                String title = listQ.getItemAtPosition(position).toString();
+                Toast.makeText(Polls.this,"This is the item selected"+title,Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
