@@ -18,6 +18,7 @@ implements NavigationView.OnNavigationItemSelectedListener {
     private ActionBarDrawerToggle mToggle;
     //--
     String sToken;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ implements NavigationView.OnNavigationItemSelectedListener {
         //-- Get JWT Token
         Intent intent = getIntent();
         sToken = intent.getStringExtra("token");
+        user = intent.getStringExtra("user");
         Log.d("HERE WE GOOOOOOOO", "onCreate: " + sToken);
 
         //---MENU
@@ -61,16 +63,19 @@ implements NavigationView.OnNavigationItemSelectedListener {
             case R.id.home:
                 intent = new Intent(Home.this, Home.class);
                 intent.putExtra("token", sToken);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 break;
             case R.id.profile:
                 intent = new Intent(Home.this, Profile.class);
                 intent.putExtra("token", sToken);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 break;
             case R.id.qna:
                 intent = new Intent(Home.this, Qna.class);
                 intent.putExtra("token", sToken);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 break;
             case R.id.survey:

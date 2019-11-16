@@ -137,12 +137,14 @@
 
             <Button
                 android:id="@+id/btnPChangePassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="174dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/buttonmainsquare"
                 android:text="Change Password?"
+                android:textColor="@color/colorGreen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtPEmail" />
@@ -150,11 +152,13 @@
 
             <Button
                 android:id="@+id/btnPSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="128dp"
+                android:layout_height="43dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/buttonmainsquare"
                 android:text="Save"
+                android:textColor="@color/colorGreen"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
