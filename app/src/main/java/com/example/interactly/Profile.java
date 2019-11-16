@@ -181,8 +181,7 @@ public class Profile extends AppCompatActivity {
     }
 
 
-    // TODO UPDATE API NEEDS TO BE FIXED
-    // WILL CHANGE EMAIL BUT NOT PASSWORDS
+
     private void Save(){
         String sUrl = "https://interactlyapi.azurewebsites.net/api/users/update";
 
@@ -190,7 +189,7 @@ public class Profile extends AppCompatActivity {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("email", sEmail);
             jsonBody.put("password", sPassword);
-            jsonBody.put("password", sConfirmPass);
+            jsonBody.put("passwordConfirmation", sConfirmPass);
 
             JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PATCH, sUrl, jsonBody, new Response.Listener<JSONObject>() {
                 @Override
