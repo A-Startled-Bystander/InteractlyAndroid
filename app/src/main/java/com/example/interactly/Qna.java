@@ -29,7 +29,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,6 +118,7 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
                 SendQuestionListReq();
                 adapter.notifyDataSetChanged();
 
+                startActivity(getIntent());
             }
 
     }

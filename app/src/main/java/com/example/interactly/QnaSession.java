@@ -84,13 +84,9 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
         SendAnswerReq();
         //to refresh list
         SendResponsesReq();
-        adapter.notifyDataSetChanged();
 
-        //TODO: testREFRESH
-        listSession.invalidateViews();
-
-
-
+        //Refresh
+        startActivity(getIntent());
     }
 
     private class MySesAdapter extends ArrayAdapter<String> {
