@@ -11,18 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QnaAsk"></activity>
+        <activity android:name=".CreatePolls"></activity>
+        <activity android:name=".QnaAsk" />
         <activity android:name=".QnaSession" />
         <activity android:name=".Polls" />
         <activity android:name=".Survey" />
         <activity android:name=".Qna" />
         <activity
             android:name=".Profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Home" />
         <activity
             android:name=".Register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
             android:theme="@style/AppTheme.NoActionBar">
