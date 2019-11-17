@@ -198,7 +198,7 @@ public class CreatePolls extends AppCompatActivity
     //test name dialog
     private void NameAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Please enter your survey name");
+        builder.setTitle("Please enter your poll name");
 
         // Set up the input
         final EditText input = new EditText(this);

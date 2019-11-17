@@ -15,16 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.interactly.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,23 +32,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.Inflater;
 
 
 public class Polls extends AppCompatActivity
 {
     //Global variable
     String sToken, sJSON,user;
-    ListView listPolls;
+    ListView listP;
     List<String> titles = new ArrayList<String>();
-    List<String> codes  = new ArrayList<String>();
+    List<String> codes = new ArrayList<>();
     List<Integer> ids = new ArrayList<Integer>();
-    MyAdapter myAdapter;
+    PollAdapter adapter;
     Button btnNewPoll;
+    private static final String TAG = "Polls";
 
-
-
-    //
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -62,66 +58,59 @@ public class Polls extends AppCompatActivity
         Log.d("JWT token", "onCreate: " + sToken);
 
         SendUserDetailsReq();
+        SendPollListRequest();
 
-        listPolls = findViewById(R.id.listPolls);
+        listP.findViewById(R.id.pList);
+//        listP.setOnItemClickListener(new AdapterView.OnItemClickListener()
+//        {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+//            {
+//
+//            }
+//        });
+
         btnNewPoll.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-               // createPoll();
-            }
-        });
-
-
-        MyAdapter myAdapter = new MyAdapter(this, titles, codes);
-        listPolls.setAdapter(myAdapter);
-
-        listPolls.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                String title = listPolls.getItemAtPosition(position).toString();
-                Toast.makeText(Polls.this,"This is the item selected"+title,Toast.LENGTH_SHORT).show();
+                createPoll();
             }
         });
 
 
     }
 
-
-    protected void getUsersPolls()
+    protected void SendPollListRequest()
     {
         titles.clear();
         codes.clear();
         ids.clear();
-
         String sUrl = "https://interactlyapi.azurewebsites.net/api/polls/polls?username="+user;
-
         try{
             StringRequest objectRequest = new StringRequest(Request.Method.GET, sUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
-                    sJSON = response.toString();
+                    sJSON = response;
                     try{
                         // comprised of /me json response
                         JSONArray jsonArray = new JSONArray(sJSON);
 
                         for(int i = 0; i < jsonArray.length(); i++)
                         {
-                            JSONObject poll = jsonArray.getJSONObject(i);
+                            JSONObject qna = jsonArray.getJSONObject(i);
 
-                            String name = poll.getString("name");
-                            String code = poll.getString("eventCode");
-                            int id = poll.getInt("pollId");
+                            String name = qna.getString("name");
+                            String code = qna.getString("eventCode");
+                            int id = qna.getInt("pollId");
 
                             titles.add(name);
                             codes.add(code);
                             ids.add(id);
                         }
-                        myAdapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
 
                     }
                     catch (Exception e){
@@ -131,7 +120,7 @@ public class Polls extends AppCompatActivity
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("HELLOOOOOOOOOOO", "OOPS ");
+                    Log.d(TAG, "onErrorResponse: "+error);
                 }
             })
             {
@@ -150,13 +139,15 @@ public class Polls extends AppCompatActivity
 
         }
         catch(Exception e){
-            Log.d("HELLOOOOOOOOOOO", "EISH ");
+            Log.d(TAG, "SendPollListRequest: "+e.getMessage());
         }
 
     }
+
+
     protected void createPoll()
     {
-       Intent intent = new Intent(this,CreatePolls.class);
+       Intent intent = new Intent(this, CreatePolls.class);
        intent.putExtra("token",sToken);
        startActivity(intent);
     }
@@ -170,15 +161,15 @@ public class Polls extends AppCompatActivity
                 @Override
                 public void onResponse(String response) {
 
-                    sJSON = response.toString();
+                    sJSON = response;
                     try{
                         // comprised of /me json response
                         JSONObject objJSON = new JSONObject(sJSON);
 
                         user = objJSON.get("username").toString();
+                        Log.d(TAG, "onResponse: "+user);
 
-                        //populate listview
-                       getUsersPolls();
+                       SendPollListRequest();
                     }
                     catch (Exception e){
                         //Breakage
@@ -187,7 +178,7 @@ public class Polls extends AppCompatActivity
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("Error User Retrieval", "Something went wrong");
+                    Log.d(TAG, "onErrorResponse: "+error);
                 }
             })
             {
@@ -206,35 +197,37 @@ public class Polls extends AppCompatActivity
 
         }
         catch(Exception e){
-            Log.d("HELLOOOOOOOOOOO", "EISH ");
+            Log.d("Exception", e.getMessage());
         }
     }
 
-    class MyAdapter extends ArrayAdapter<String>
-    {
-        Context context;
-        List<String> myTitles;
-        List<String>  myCodes;
+    class PollAdapter extends ArrayAdapter<String>
+   {
+       Context context;
+       List<String> myTitles;
+       List<String>  myCodes;
 
-        MyAdapter(Context c, List<String> titles, List<String> codes)
-        {
-            super(c,R.layout.qrow,R.id.qtitle, titles);
-            this.context=c;
-            this.myTitles=titles;
-            this.myCodes=codes;
-        }
+       PollAdapter(Context c, List<String> titles, List<String> codes)
+       {
+           super(c,R.layout.poll_list,R.id.pTitle, titles);
+           this.context=c;
+           this.myTitles=titles;
+           this.myCodes=codes;
+       }
 
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View qrow = layoutInflater.inflate(R.layout.qrow, parent, false);
-            TextView myTitle = qrow.findViewById(R.id.qtitle);
-            TextView myDescription = qrow.findViewById(R.id.qdescription);
-            myTitle.setText(titles.get(position));
-            myDescription.setText(codes.get(position));
+       @NonNull
+       @Override
+       public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+           LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           View plist = layoutInflater.inflate(R.layout.poll_list, parent, false);
+           TextView myTitle = plist.findViewById(R.id.pTitle);
+           TextView myDescription = plist.findViewById(R.id.pdescription);
+           myTitle.setText(titles.get(position));
+           myDescription.setText(codes.get(position));
 
-            return qrow;
-        }
-    }
+
+           return plist;
+       }
+   }
+
 }
