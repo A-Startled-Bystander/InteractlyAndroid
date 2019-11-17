@@ -60,11 +60,12 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
         //-- Get JWT Token
         Intent intent = getIntent();
         sToken = intent.getStringExtra("token");
-        user = intent.getStringExtra("user");
+        SendUserDetailsReq();
+
         Log.d("HERE WE GOOOOOOOO", "onCreate: " + sToken);
 
         //get questions from database
-        SendQuestionListReq();
+
 
         btnNewQuestion = findViewById(R.id.btnNewQuestion);
         listQ = findViewById(R.id.listQuestions);
@@ -80,7 +81,6 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
 
                Intent intent = new Intent(Qna.this, QnaSession.class);
                intent.putExtra("token", sToken);
-               intent.putExtra("user", user);
                intent.putExtra("qnaID", ids.get(position).toString());
                startActivity(intent);
 
@@ -116,9 +116,60 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
                 sQnaTitle = qnaTitle;
                 SendQnaCreateReq();
                 SendQuestionListReq();
-        }
+                adapter.notifyDataSetChanged();
+
+            }
 
     }
+
+    private void SendUserDetailsReq(){
+        String sUrl = "https://interactlyapi.azurewebsites.net/api/users/me";
+
+        try{
+            StringRequest objectRequest = new StringRequest(Request.Method.GET, sUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    sJSON = response.toString();
+                    try{
+                        // comprised of /me json response
+                        JSONObject objJSON = new JSONObject(sJSON);
+
+                        user = objJSON.get("username").toString();
+
+                        //populate listview
+                        SendQuestionListReq();
+                    }
+                    catch (Exception e){
+                        //Breakage
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("HELLOOOOOOOOOOO", "OOPS ");
+                }
+            })
+            {
+                // Add JWT Token to the request header
+                @Override
+                public Map getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "Bearer "+ sToken);
+                    return params;
+                }
+
+            };
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(objectRequest);
+
+        }
+        catch(Exception e){
+            Log.d("HELLOOOOOOOOOOO", "EISH ");
+        }
+    }
+
 
     private void SendQnaCreateReq(){
 

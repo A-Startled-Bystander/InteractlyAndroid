@@ -10,33 +10,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-public class HostQna extends AppCompatDialogFragment {
-    private EditText hQnaName;
-    private HostQnaListener listener;
+public class QnaReply extends AppCompatDialogFragment {
+
+    private QnaReplyListener listener;
+    EditText edtQnaReply;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.host_qna, null);
+        View view = inflater.inflate(R.layout.qna_reply, null);
+        edtQnaReply = view.findViewById(R.id.edtReplyMessage);
+
 
         builder.setView(view)
-                .setTitle("Host QnA")
+                .setTitle("Reply")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-            }
-        }).setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                    }
+                }).setPositiveButton("Accept", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String title = hQnaName.getText().toString();
-                listener.getQnaTitle(title);
+                String reply = edtQnaReply.getText().toString();
+                listener.getReply(reply);
             }
         });
 
-        hQnaName = view.findViewById(R.id.hQnaName);
 
         return builder.create();
     }
@@ -46,17 +48,15 @@ public class HostQna extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (HostQnaListener) context;
+            listener = (QnaReplyListener) context;
         } catch (Exception e) {
-            throw new ClassCastException(context.toString() + "must implement HostQnaListener");
+            throw new ClassCastException(context.toString() + "must implement QnaReply");
         }
     }
 
-    public interface HostQnaListener
+    public interface QnaReplyListener
     {
-        void getQnaTitle(String qnaTitle);
+        void getReply(String qnaReply);
     }
-
-
 
 }

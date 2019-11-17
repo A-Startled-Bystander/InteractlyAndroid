@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/colorGrey">
+
+    <TextView
+        android:id="@+id/txtReply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your reply message."
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:paddingTop="20dp"
+        android:id="@+id/edtReplyMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reply..."
+        android:backgroundTint="@color/white"
+        android:textColor="@color/white"
+        android:textColorHint="@color/colorlightGrey" />
+
+</RelativeLayout>

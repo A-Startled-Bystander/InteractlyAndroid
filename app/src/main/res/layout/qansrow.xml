@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="left">
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
@@ -38,12 +38,19 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSesAnswer"
-        android:layout_width="78dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttonmain"
-        android:text="answer"
-        android:textColor="@color/colorGreen" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnSesAnswer"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonmain"
+            android:text="reply"
+            android:textColor="@color/colorGreen" />
+    </LinearLayout>
+
 
 </LinearLayout>
