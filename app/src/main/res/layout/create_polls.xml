@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Survey">
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="356dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/borderdark"
+        app:layout_constraintBottom_toTopOf="@+id/txtbxQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="197dp"
+        android:layout_height="45dp"
+        android:text="Create Poll"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view6"
+        app:layout_constraintEnd_toEndOf="@+id/view6"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="@+id/view6"
+        app:layout_constraintTop_toTopOf="@+id/view6" />
+
+
+    <Button
+        android:id="@+id/btnAddOptionP"
+        android:layout_width="189dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonmain"
+        android:text="Add Option"
+        android:textColor="@color/colorGreen"
+        app:layout_constraintBottom_toTopOf="@+id/btnDoneP"
+        app:layout_constraintEnd_toStartOf="@+id/btnNextQuestionP"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnNextQuestionP"
+        android:layout_width="193dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonmain"
+        android:text="Next Question >>"
+        android:textColor="@color/colorGreen"
+        app:layout_constraintBottom_toTopOf="@+id/btnDoneP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAddOptionP" />
+
+    <Button
+        android:id="@+id/btnDoneP"
+        android:layout_width="326dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/buttonmain"
+        android:text="Done"
+        android:textColor="@color/colorGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/txtbxQuestion"
+        android:layout_width="378dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="15dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Type Poll Title Here"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+    <EditText
+        android:id="@+id/txtbxOptionsp"
+        android:hint="Option 1"
+        android:layout_width="349dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="34dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbxQuestion" />
+
+    <EditText
+        android:id="@+id/txtbxOptions1p"
+        android:layout_width="349dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Option 2"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbxOptionsp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="369dp"
+        android:layout_height="17dp"
+        android:text="Poll title must be between 8 and 30 characters"
+        app:layout_constraintBottom_toTopOf="@+id/txtbxOptionsp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbxQuestion"
+        app:layout_constraintVertical_bias="0.17" />
+
+</android.support.constraint.ConstraintLayout>
