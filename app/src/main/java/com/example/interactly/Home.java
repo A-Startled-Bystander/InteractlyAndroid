@@ -78,7 +78,7 @@ implements NavigationView.OnNavigationItemSelectedListener {
                 intent.putExtra("token", sToken);
                 startActivity(intent);
             case R.id.polls:
-                intent = new Intent(Home.this, CreatePolls.class);
+                intent = new Intent(Home.this, Polls.class);
                 intent.putExtra("token",sToken);
                 startActivity(intent);
                 break;

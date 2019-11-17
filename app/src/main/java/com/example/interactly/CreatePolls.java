@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -36,6 +37,7 @@ public class CreatePolls extends AppCompatActivity
     private String Question;
     private PollOptions pollOptions;
     private int count = 0;
+    Gson gson = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -66,10 +68,12 @@ public class CreatePolls extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if (txtbxOptions.getText().toString().equals("")|| txtbxOptions.getText().toString().equals(null)||txtbxQuestion.getText().toString().equals("")|| txtbxQuestion.getText().toString().equals(null)){
+                if (txtbxOptions.getText().toString().equals("")|| txtbxOptions.getText().toString().equals(null)||txtbxOptions1.getText().toString().equals("")|| txtbxOptions1.getText().toString().equals(null)||txtbxQuestion.getText().toString().equals("")|| txtbxQuestion.getText().toString().equals(null))
+                {
 
                     Toast.makeText(getApplicationContext(), "a question and option is required",Toast.LENGTH_LONG).show();
-                }else{
+                }
+                else{
 
                     Options.add(txtbxOptions.getText().toString());
                     count++;
@@ -130,7 +134,7 @@ public class CreatePolls extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-               // createPollRequest();
+               createPollRequest(StorePollOpt);
             }
         });
 
@@ -138,14 +142,17 @@ public class CreatePolls extends AppCompatActivity
 
     }
 
-    protected void createPollRequest()
+    protected void createPollRequest(ArrayList options)
     {
         sUrl = "https://interactlyapi.azurewebsites.net/api/polls/create";
+        Gson gson = new Gson();
+        String jOptions = gson.toJson(options);
 
         try{
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("pName",Title);
             jsonBody.put("question",Question);
+            jsonBody.put("options",jOptions);
 
 
             JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, sUrl, jsonBody, new Response.Listener<JSONObject>() {
