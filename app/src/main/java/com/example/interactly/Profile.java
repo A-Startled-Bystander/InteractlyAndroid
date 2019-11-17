@@ -201,8 +201,9 @@ public class Profile extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT);
                     toast.show();
 
-                    finish();
-                    startActivity(getIntent());
+                    Intent intent = new Intent(Profile.this, Home.class);
+                    intent.putExtra("token", sToken);
+                    startActivity(intent);
                 }
             }, new Response.ErrorListener() {
                 @Override
