@@ -90,7 +90,7 @@ public class QnaAsk extends AppCompatActivity {
                 }else
                     {Toast.makeText(QnaAsk.this, "Please enter a question", Toast.LENGTH_SHORT).show();}
 
-                startActivity(getIntent());
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -222,9 +222,9 @@ public class QnaAsk extends AppCompatActivity {
                             questions.add(question);
                             answers.add(answer);
                             qIDs.add(qid);
-                            adapter.notifyDataSetChanged();
-
                         }
+                        adapter.notifyDataSetChanged();
+
                     }
                     catch (Exception e){
                         Log.d("HELLOOOOOOOOOOO", "broke here: "+e);
