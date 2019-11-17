@@ -130,7 +130,7 @@ public class CreatePolls extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                createPollRequest();
+               // createPollRequest();
             }
         });
 
