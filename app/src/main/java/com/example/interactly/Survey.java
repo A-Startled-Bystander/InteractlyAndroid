@@ -2,6 +2,8 @@ package com.example.interactly;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -17,8 +19,10 @@ import java.util.ArrayList;
 
 
 public class Survey extends AppCompatActivity {
-    private String Title = "";
+    private String Title;
     private String Question;
+    private QuestionsOptions questionsOptions;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class Survey extends AppCompatActivity {
         final TextView txtbxOptions = findViewById(R.id.txtbxOptions);
 
         final ArrayList<String> Options = new ArrayList<>();
+        final ArrayList<QuestionsOptions> StoreQuestOpt = new ArrayList<QuestionsOptions>();
+
 
 
         //Prompt for test name
@@ -47,6 +53,7 @@ public class Survey extends AppCompatActivity {
                 }else{
 
                     Options.add(txtbxOptions.getText().toString());
+                    count++;
                     txtbxQuestion.setEnabled(false);
 
                     txtbxOptions.setText("");
@@ -60,17 +67,39 @@ public class Survey extends AppCompatActivity {
             }
         });
         btnNxtQuestion.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
 
                     Question = txtbxQuestion.getText().toString();
+
+
                     if (txtbxOptions.getText().toString().equals("")|| txtbxOptions.getText().toString().equals(null)){
 
                     }else{
-                        Options.add(txtbxOptions.toString());
+                        Options.add(txtbxOptions.getText().toString());
                     }
+
                     txtbxQuestion.setText("");
+                    txtbxOptions.setText("");
                     txtbxQuestion.setEnabled(true);
+
+
+                    questionsOptions = new QuestionsOptions();
+
+                    questionsOptions.setQuestion(Question);
+                    questionsOptions.setOptions(Options);
+                    questionsOptions.setCount(count);
+                    StoreQuestOpt.add(questionsOptions);
+
+
+
+
+                for (QuestionsOptions quest: StoreQuestOpt) {
+                    Log.d("READING CLASS", quest.getQuestion() + ", Options: "+ quest.getOptions() + " Count: " + count);
+                }
+
+                count = 0;
 
             }
         });
@@ -112,6 +141,42 @@ public class Survey extends AppCompatActivity {
 
         builder.show();
     }
+
+    public class QuestionsOptions {
+
+        String Question;
+        ArrayList<String> Options ;
+        int count;
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+//QuestionsOptions(String Question, ArrayList<String> options){
+       //     this.Question = Question;
+       //     this.options = options;
+      //  }
+
+        public String getQuestion() {
+            return Question;
+        }
+
+        public void setQuestion(String question) {
+            Question = question;
+        }
+
+        public ArrayList<String> getOptions() {
+            return Options;
+        }
+
+        public void setOptions(ArrayList<String> options) {
+            Options = options;
+        }
+    }
+
 
 
 
