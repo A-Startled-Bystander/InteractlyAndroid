@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/mainbackground"
     tools:context=".Register">
 
     <View
@@ -42,22 +42,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logocircle" />
 
+    <View
+        android:id="@+id/view6"
+        android:layout_width="329dp"
+        android:layout_height="355dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5"
+        app:layout_constraintVertical_bias="0.035" />
+
     <EditText
         android:id="@+id/txtRUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_width="287dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toTopOf="@+id/view6" />
 
     <EditText
         android:id="@+id/txtREmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="282dp"
+        android:layout_height="41dp"
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Email"
@@ -68,9 +82,9 @@
 
     <EditText
         android:id="@+id/txtRConfirmPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_width="279dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword"
@@ -82,7 +96,7 @@
         android:id="@+id/btnRCancel"
         android:layout_width="160dp"
         android:layout_height="55dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="132dp"
         android:background="@color/colorBlue"
         android:text="Cancel"
         android:textColor="@color/white"
@@ -95,25 +109,51 @@
         android:id="@+id/btnRSubmit"
         android:layout_width="160dp"
         android:layout_height="55dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="132dp"
         android:background="@color/colorGreen"
         android:text="Submit"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintHorizontal_bias="0.832"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRConfirmPass" />
 
     <EditText
         android:id="@+id/txtRPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="280dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtREmail" />
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Username must be a minimum of 3 characters"
+        android:textSize="10dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/view6"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@+id/view6"
+        app:layout_constraintTop_toBottomOf="@+id/txtRConfirmPass" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Password must be a minimum of 8 characters"
+        android:textSize="10dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/view6"
+        app:layout_constraintEnd_toEndOf="@+id/view6"
+        app:layout_constraintHorizontal_bias="0.097"
+        app:layout_constraintStart_toStartOf="@+id/view6" />
 </android.support.constraint.ConstraintLayout>
