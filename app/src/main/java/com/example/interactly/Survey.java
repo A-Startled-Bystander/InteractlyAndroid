@@ -2,6 +2,7 @@ package com.example.interactly;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +15,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,18 +31,30 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Survey extends AppCompatActivity {
     private String Title;
     private String Question;
+    String sToken, sJSON, user;
     private QuestionsOptions questionsOptions;
     private int count = 0;
+
+    final private ArrayList<String> Options = new ArrayList<>();
+    final private ArrayList<QuestionsOptions> StoreQuestOpt = new ArrayList<QuestionsOptions>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey);
+
+        //-- Get JWT Token
+        Intent intent = getIntent();
+        sToken = intent.getStringExtra("token");
+        SendUserDetailsReq();
 
         Button btnNxtQuestion = findViewById(R.id.btnNextQuestionP);
         Button btnAddOption = findViewById(R.id.btnAddOptionP);
@@ -44,8 +62,6 @@ public class Survey extends AppCompatActivity {
         final TextView txtbxQuestion = findViewById(R.id.txtbxQuestion);
         final TextView txtbxOptions = findViewById(R.id.txtbxOptionsp);
 
-        final ArrayList<String> Options = new ArrayList<>();
-        final ArrayList<QuestionsOptions> StoreQuestOpt = new ArrayList<QuestionsOptions>();
 
 
 
@@ -117,16 +133,18 @@ public class Survey extends AppCompatActivity {
                     for (int i = 0; i < nerd.length; i++) {
                         Log.d("READING CLASS", quest.getQuestion() + ", Options: "+ nerd[i]);
                     }
-
                 }
-
-
                 Options.clear();
             }
         });
 
 
-
+    btnDone.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CreateSurveyReq();
+        }
+    });
 
 
 
@@ -163,9 +181,128 @@ public class Survey extends AppCompatActivity {
 
         builder.show();
     }
-    public void PostSurvey(){
-    String link = "https://interactlyapi.azurewebsites.net/index.html/api/surveys/surveys";
 
+    private void SendUserDetailsReq(){
+        String sUrl = "https://interactlyapi.azurewebsites.net/api/users/me";
+
+        try{
+            StringRequest objectRequest = new StringRequest(Request.Method.GET, sUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    sJSON = response.toString();
+                    try{
+                        // comprised of /me json response
+                        JSONObject objJSON = new JSONObject(sJSON);
+
+                        user = objJSON.get("username").toString();
+
+                    }
+                    catch (Exception e){
+                        //Breakage
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("HELLOOOOOOOOOOO", "OOPS ");
+                }
+            })
+            {
+                // Add JWT Token to the request header
+                @Override
+                public Map getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "Bearer "+ sToken);
+                    return params;
+                }
+
+            };
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(objectRequest);
+
+        }
+        catch(Exception e){
+            Log.d("HELLOOOOOOOOOOO", "EISH ");
+        }
+    }
+
+    private void CreateSurveyReq(){
+
+        String sURL = "https://interactlyapi.azurewebsites.net/api/surveys/create";
+
+        try{
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("title",Title);
+            jsonBody.put("userId",user);
+            JSONArray arr = new JSONArray();
+            for (QuestionsOptions questions: StoreQuestOpt)
+            {
+                JSONObject objQuest = new JSONObject();
+                objQuest.put("question", questions.getQuestion());
+                objQuest.put("userId", user);
+
+                JSONArray subArr = new JSONArray();
+                for(String option : questions.Options)
+                {
+                    JSONObject objOpt = new JSONObject();
+                    objOpt.put("optionText", option);
+                    subArr.put(objOpt);
+                }
+                objQuest.put("options",subArr);
+                arr.put(objQuest);
+                Log.d("Jaime Test", "SubArr: "+subArr);
+
+            }
+            jsonBody.put("questions",arr);
+
+
+            Log.d("Jaime Test", "CreateSurveyReq: "+jsonBody);
+            Log.d("Jaime Test", "Arr: "+arr);
+            JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, sURL, jsonBody, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Toast toast = Toast.makeText(getApplicationContext(),"You have successfully hosted a QnA", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    // Retrieving JSON response
+                    String s = response.toString();
+                    try{
+
+                        JSONObject obj = new JSONObject(s);
+                        Log.d("WE CONVERTED IT: ", "Username and password: " + obj.get("username"));
+                    }
+                    catch(Exception ex){
+                        Log.d("MyFailTag", "COULDNT CONVERT THE HOE " + ex);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast toast = Toast.makeText(getApplicationContext(),"Error creating account", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            })
+            {
+                // Add JWT Token to the request header
+                @Override
+                public Map getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "Bearer "+ sToken);
+                    return params;
+                }
+
+            };
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(objectRequest);
+
+        }
+        catch (Exception e){
+            Log.d("Uhm Yeaaaaaa", "Somethings not right: ");
+        }
 
     }
 

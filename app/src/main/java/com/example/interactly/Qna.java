@@ -174,7 +174,6 @@ public class Qna extends AppCompatActivity implements HostQna.HostQnaListener
 
     private void SendQnaCreateReq(){
 
-
         String sURL = "https://interactlyapi.azurewebsites.net/api/qna/create";
 
         try{
