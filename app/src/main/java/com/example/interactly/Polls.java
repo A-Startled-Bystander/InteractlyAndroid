@@ -60,7 +60,8 @@ public class Polls extends AppCompatActivity
         SendUserDetailsReq();
         SendPollListRequest();
 
-        listP.findViewById(R.id.pList);
+        listP = findViewById(R.id.pList);
+        btnNewPoll = findViewById(R.id.btnNewPoll);
 //        listP.setOnItemClickListener(new AdapterView.OnItemClickListener()
 //        {
 //            @Override
