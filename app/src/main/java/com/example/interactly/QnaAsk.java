@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,73 +34,77 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyListener {
+public class QnaAsk extends AppCompatActivity {
 
-    String sToken, qnaID;
-    String sJSON, sSessionName, sSessionUser, sSessionCode;
-    String newReply;
-    int iClicked;
+    String eventID, sJSON;
+    String sSessionName, sSessionCode, sSessionUser;
 
     List<String> names = new ArrayList<String>();
     List<String> questions  = new ArrayList<String>();
     List<String> answers  = new ArrayList<String>();
     List<Integer> qIDs = new ArrayList<Integer>();
 
-    TextView sSesName, sSesUser;
-    ListView listSession;
-    MySesAdapter adapter;
+    TextView txtAskName, txtAskUser;
+    ListView listAsk;
+    MyAskAdapter adapter;
 
+    EditText edtAskMessage;
+    Button btnAskPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.qna_session);
+        setContentView(R.layout.qna_ask);
 
-        //-- Get JWT Token
         Intent intent = getIntent();
-        sToken = intent.getStringExtra("token");
-        qnaID = intent.getStringExtra("qnaID");
+        eventID = intent.getStringExtra("eventID");
 
-        sSesName = findViewById(R.id.txtSessionName);
-        sSesUser = findViewById(R.id.txtSessionUser);
+        txtAskName = findViewById(R.id.txtAskName);
+        txtAskUser = findViewById(R.id.txtAskUser);
+        edtAskMessage = findViewById(R.id.edtAskMessage);
+        btnAskPost = findViewById(R.id.btnAskPost);
 
-
+        //get session info
         SendSessionReq();
 
 
-        listSession = findViewById(R.id.listSession);
+        listAsk = findViewById(R.id.listAsk);
 
-        adapter = new MySesAdapter(this, names, questions, answers );
-        listSession.setAdapter(adapter);
+        adapter = new MyAskAdapter(this, names, questions, answers);
+        listAsk.setAdapter(adapter);
+
         adapter.notifyDataSetChanged();
+        listAsk.invalidateViews();
+
+        btnAskPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ask = edtAskMessage.getText().toString();
+                if(!ask.equals(""))
+                {
+                    SendAskReq(ask);
+                    Toast.makeText(QnaAsk.this, "Question added", Toast.LENGTH_SHORT).show();
 
 
-        //get session
+
+                }else
+                    {Toast.makeText(QnaAsk.this, "Please enter a question", Toast.LENGTH_SHORT).show();}
+
+                //REFRESH TODO
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
     }
 
-    @Override
-    public void getReply(String qnaReply) {
-        newReply = qnaReply;
-        //Accept button for reply here
-        SendAnswerReq();
-        //to refresh list
-        SendResponsesReq();
-        adapter.notifyDataSetChanged();
-
-        //TODO: testREFRESH
-        listSession.invalidateViews();
-
-
-
-    }
-
-    private class MySesAdapter extends ArrayAdapter<String> {
+    private class MyAskAdapter extends ArrayAdapter<String> {
         Context context;
         List<String> myNames;
         List<String> myQuestions;
         List<String> myAnswers;
 
-        MySesAdapter(Context c, List<String> names, List<String> questions, List<String> answers)
+        MyAskAdapter(Context c, List<String> names, List<String> questions, List<String> answers)
         {
             super(c,R.layout.qansrow,R.id.qSesName, names);
             this.context=c;
@@ -113,34 +118,61 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View qansrow = inflater.inflate(R.layout.qansrow, parent, false);
-            TextView myName = qansrow.findViewById(R.id.qSesName);
-            TextView myQuestion = qansrow.findViewById(R.id.qSesQuest);
-            TextView myAnswer = qansrow.findViewById(R.id.qSesAns);
-            Button btnAnswer = qansrow.findViewById(R.id.btnSesAnswer);
-            btnAnswer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openDialog();
-                    iClicked = position;
-                }
-            });
+            View qaskrow = inflater.inflate(R.layout.qaskrow, parent, false);
+            TextView myName = qaskrow.findViewById(R.id.qAskName);
+            TextView myQuestion = qaskrow.findViewById(R.id.qAskQuest);
+            TextView myAnswer = qaskrow.findViewById(R.id.qAskAns);
+
             myName.setText(names.get(position));
             myQuestion.setText(questions.get(position));
             myAnswer.setText(answers.get(position));
 
-            if(!myAnswer.getText().equals("Reply. . ."))
-            {
-                btnAnswer.setVisibility(View.GONE);
-            }
-            return qansrow;
+
+            return qaskrow;
         }
     }
-    public void openDialog()
-    {
-        QnaReply qnaReply = new QnaReply();
-        qnaReply.show(getSupportFragmentManager(), "Reply to message");
 
+    //get session info
+    public void SendSessionReq(){
+        String sUrl = "https://interactlyapi.azurewebsites.net/api/qna/session?qnaId="+eventID;
+
+        try{
+            StringRequest objectRequest = new StringRequest(Request.Method.GET, sUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    sJSON = response.toString();
+                    try{
+                        // comprised of /me json response
+                        JSONObject objJSON = new JSONObject(sJSON);
+
+                        sSessionName = objJSON.get("name").toString();
+                        sSessionCode = objJSON.get("eventCode").toString();
+                        sSessionUser= objJSON.get("username").toString();
+
+                        txtAskName.setText(sSessionName + " #"+sSessionCode);
+                        txtAskUser.setText("by "+sSessionUser);
+
+                        SendResponsesReq();
+                    }
+                    catch (Exception e){
+                        //Breakage
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("HELLOOOOOOOOOOO", "OOPS ");
+                }
+            });
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(objectRequest);
+
+        }
+        catch(Exception e){
+            Log.d("HELLOOOOOOOOOOO", "EISH ");
+        }
 
     }
 
@@ -151,7 +183,7 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
         answers.clear();
         qIDs.clear();
 
-        String sUrl = "https://interactlyapi.azurewebsites.net/api/qna/responses?qnaId="+qnaID;
+        String sUrl = "https://interactlyapi.azurewebsites.net/api/qna/responses?qnaId="+eventID;
 
         try{
             StringRequest objectRequest = new StringRequest(Request.Method.GET, sUrl, new Response.Listener<String>() {
@@ -183,11 +215,9 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
 
                             }else
                             {
-                                answer = "Reply. . .";
+                                answer = " ";
                             }
                             int qid = session.getInt("qnaQuestionId");
-
-
 
                             names.add(name);
                             questions.add(question);
@@ -196,7 +226,11 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
 
 
                         }
+
+                        //REFRESH TODO
                         adapter.notifyDataSetChanged();
+                        listAsk.invalidateViews();
+
 
                     }
                     catch (Exception e){
@@ -208,74 +242,13 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
                 public void onErrorResponse(VolleyError error) {
                     Log.d("HELLOOOOOOOOOOO", "OOPS ");
                 }
-            })
-            {
-                // Add JWT Token to the request header
-                @Override
-                public Map getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "Bearer "+ sToken);
-                    return params;
-                }
-
-            };
+            });
 
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(objectRequest);
-
-        }
-        catch(Exception e){
-            Log.d("HELLOOOOOOOOOOO", "EISH ");
-        }
-
-    }
-
-    //get session info
-    public void SendSessionReq(){
-        String sUrl = "https://interactlyapi.azurewebsites.net/api/qna/session?qnaId="+qnaID;
-
-        try{
-            StringRequest objectRequest = new StringRequest(Request.Method.GET, sUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-
-                    sJSON = response.toString();
-                    try{
-                        // comprised of /me json response
-                        JSONObject objJSON = new JSONObject(sJSON);
-
-                        sSessionName = objJSON.get("name").toString();
-                        sSessionCode = objJSON.get("eventCode").toString();
-                        sSessionUser= objJSON.get("username").toString();
-
-                        sSesName.setText(sSessionName + " #"+sSessionCode);
-                        sSesUser.setText("by "+sSessionUser);
-
-                        SendResponsesReq();
-                    }
-                    catch (Exception e){
-                        //Breakage
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("HELLOOOOOOOOOOO", "OOPS ");
-                }
-            })
-            {
-                // Add JWT Token to the request header
-                @Override
-                public Map getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "Bearer "+ sToken);
-                    return params;
-                }
-
-            };
-
-            RequestQueue queue = Volley.newRequestQueue(this);
-            queue.add(objectRequest);
+            //REFRESH TODO
+            adapter.notifyDataSetChanged();
+            listAsk.invalidateViews();
 
         }
         catch(Exception e){
@@ -285,16 +258,15 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
     }
 
 
-
-    private void SendAnswerReq(){
-        String sURL = "https://interactlyapi.azurewebsites.net/api/qna/answer";
+    private void SendAskReq(String ask){
+        String sURL = "https://interactlyapi.azurewebsites.net/api/qna/ask";
 
         try{
 
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("answer",newReply);
-            jsonBody.put("qnaQuestionId",qIDs.get(iClicked).toString());
-           // jsonBody.put("userId",x);
+            jsonBody.put("question",ask);
+            jsonBody.put("qnaId",eventID);
+            //jsonBody.put("userId",newReply);
 
 
 
@@ -318,17 +290,7 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
                     Toast toast = Toast.makeText(getApplicationContext(),"Error Replying", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-            })
-            {
-                // Add JWT Token to the request header
-                @Override
-                public Map getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "Bearer "+ sToken);
-                    return params;
-                }
-
-            };
+            });
 
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(objectRequest);
@@ -337,6 +299,6 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
         catch (Exception e){
             Log.d("Uhm Yeaaaaaa", "Somethings not right: ");
         }
-
+        SendResponsesReq();
     }
 }

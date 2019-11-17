@@ -6,22 +6,32 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login extends AppCompatActivity {
     Button btnRegister, btnLogin, btnToSurvey;
     TextView txtLName,txtLPass;
-    String sName,sPass,sEmail;
+    EditText edtLCode;
+    String sName,sPass,sEmail, sJSON;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +46,7 @@ public class Login extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
         btnToSurvey = findViewById(R.id.btnLGo);
+        edtLCode = findViewById(R.id.edtLCode);
         txtLName = findViewById(R.id.txtLName);
         txtLPass = findViewById(R.id.txtLPassword);
 
@@ -45,21 +56,12 @@ public class Login extends AppCompatActivity {
                 //TODO Test if account info is correct
 
 
-                // Creating GET url
-                //String sTest = "WhoaThere";
-                //String s = String.format("https://interactlyapi.azurewebsites.net/api/users/profile?param1=%1$s", sTest);
-                //Log.d("HIIIIIIIII", "onClick: " + s);
-                // = https://interactlyapi.azurewebsites.net/api/users/profile?param1=WhoaThere
-                // param1 must be name of field
-
 
                 sName = txtLName.getText().toString();
                 sPass = txtLPass.getText().toString();
                 sEmail = "";
                 SendReq();
 
-                //Intent intent = new Intent(Login.this, Home.class);
-                //startActivity(intent);
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -74,10 +76,12 @@ public class Login extends AppCompatActivity {
         btnToSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                Toast.makeText(Login.this, "Use code and go to survey... TODO", Toast.LENGTH_SHORT).show();
+                //Get survey type
+                SendEventReq();
             }
         });
+
+
     }
 
     private void SendReq(){
@@ -136,4 +140,68 @@ public class Login extends AppCompatActivity {
             Log.d("FUCKUP VEN MORE", e.toString());
         }
     }
+
+    public void SendEventReq(){
+        String code = edtLCode.getText().toString();
+        String sUrl = "https://interactlyapi.azurewebsites.net/api/events/event?code="+code;
+
+        try{
+            StringRequest objectRequest = new StringRequest(Request.Method.GET, sUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    sJSON = response.toString();
+                    try{
+                        JSONObject jsonObject = new JSONObject(sJSON);
+
+                            String type = jsonObject.getString("eventTypeId");
+                            String eventId = jsonObject.getString("eventId");
+
+                            switch (type)
+                            {
+                                case "1":
+                                    //POLL
+                                    //Intent intent = new Intent();
+                                    //startActivity(intent);
+                                    Toast.makeText(Login.this, "Type: POLL "+type, Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "2":
+                                    //SURVEY
+                                    //Intent intent = new Intent();
+                                    //startActivity(intent);
+                                    Toast.makeText(Login.this, "Type: Survey "+type, Toast.LENGTH_SHORT).show();
+
+                                    break;
+                                case "3":
+                                    //QNA
+                                    Intent intent = new Intent(Login.this, QnaAsk.class);
+                                    intent.putExtra("eventID", eventId);
+                                    startActivity(intent);
+                                    break;
+                            }
+
+
+                    }
+                    catch (Exception e){
+                        //Breakage
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("HELLOOOOOOOOOOO", "OOPS ");
+                    Toast.makeText(Login.this, "No event found.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(objectRequest);
+
+        }
+        catch(Exception e){
+            Log.d("HELLOOOOOOOOOOO", "EISH ");
+        }
+
+    }
+
 }
