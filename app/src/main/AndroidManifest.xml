@@ -14,6 +14,7 @@
         <activity android:name=".QnaSession"></activity>
         <activity android:name=".Polls"></activity>
         <activity android:name=".Qna"></activity>
+        <activity android:name=".Survey"></activity>
         <activity
             android:name=".Profile"
             android:theme="@style/AppTheme.NoActionBar">
