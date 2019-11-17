@@ -163,13 +163,13 @@ public class Login extends AppCompatActivity {
                                     //POLL
                                     //Intent intent = new Intent();
                                     //startActivity(intent);
-                                    Toast.makeText(Login.this, "Type: "+type, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Type: POLL "+type, Toast.LENGTH_SHORT).show();
                                     break;
                                 case "2":
                                     //SURVEY
                                     //Intent intent = new Intent();
                                     //startActivity(intent);
-                                    Toast.makeText(Login.this, "Type: "+type, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Type: Survey "+type, Toast.LENGTH_SHORT).show();
 
                                     break;
                                 case "3":

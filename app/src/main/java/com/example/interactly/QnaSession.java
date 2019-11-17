@@ -81,7 +81,6 @@ public class QnaSession extends AppCompatActivity implements QnaReply.QnaReplyLi
     public void getReply(String qnaReply) {
         newReply = qnaReply;
         //Accept button for reply here
-        Toast.makeText(this, "ID: "+qIDs.get(iClicked), Toast.LENGTH_SHORT).show();
         SendAnswerReq();
         //to refresh list
         SendResponsesReq();
