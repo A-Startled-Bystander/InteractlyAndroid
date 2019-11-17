@@ -135,7 +135,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Enter a survey code"
+        android:hint="Enter event code"
         android:inputType="textPersonName"
         android:textSize="14sp"
         android:backgroundTint="@color/white"
