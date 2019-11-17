@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +28,11 @@ public class Survey extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey);
 
-        Button btnNxtQuestion = findViewById(R.id.btnNextQuestion);
-        Button btnAddOption = findViewById(R.id.btnAddOption);
-        Button btnDone = findViewById(R.id.btnDone);
+        Button btnNxtQuestion = findViewById(R.id.btnNextQuestionP);
+        Button btnAddOption = findViewById(R.id.btnAddOptionP);
+        Button btnDone = findViewById(R.id.btnDoneP);
         final TextView txtbxQuestion = findViewById(R.id.txtbxQuestion);
-        final TextView txtbxOptions = findViewById(R.id.txtbxOptions);
+        final TextView txtbxOptions = findViewById(R.id.txtbxOptionsp);
 
         final ArrayList<String> Options = new ArrayList<>();
         final ArrayList<QuestionsOptions> StoreQuestOpt = new ArrayList<QuestionsOptions>();
