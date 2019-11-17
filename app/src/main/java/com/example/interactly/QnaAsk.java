@@ -90,8 +90,7 @@ public class QnaAsk extends AppCompatActivity {
                 }else
                     {Toast.makeText(QnaAsk.this, "Please enter a question", Toast.LENGTH_SHORT).show();}
 
-                //REFRESH TODO
-                adapter.notifyDataSetChanged();
+                startActivity(getIntent());
             }
         });
 
@@ -223,15 +222,9 @@ public class QnaAsk extends AppCompatActivity {
                             questions.add(question);
                             answers.add(answer);
                             qIDs.add(qid);
-
+                            adapter.notifyDataSetChanged();
 
                         }
-
-                        //REFRESH TODO
-                        adapter.notifyDataSetChanged();
-                        listAsk.invalidateViews();
-
-
                     }
                     catch (Exception e){
                         Log.d("HELLOOOOOOOOOOO", "broke here: "+e);
@@ -246,9 +239,8 @@ public class QnaAsk extends AppCompatActivity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(objectRequest);
-            //REFRESH TODO
-            adapter.notifyDataSetChanged();
-            listAsk.invalidateViews();
+
+
 
         }
         catch(Exception e){
