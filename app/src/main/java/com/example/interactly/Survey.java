@@ -15,6 +15,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 
 
@@ -74,35 +84,48 @@ public class Survey extends AppCompatActivity {
                     Question = txtbxQuestion.getText().toString();
 
 
+
                     if (txtbxOptions.getText().toString().equals("")|| txtbxOptions.getText().toString().equals(null)){
 
                     }else{
                         Options.add(txtbxOptions.getText().toString());
                     }
 
+                String[] OptionConvert = new String[Options.size()];
+
                     txtbxQuestion.setText("");
                     txtbxOptions.setText("");
                     txtbxQuestion.setEnabled(true);
 
 
+                for (int i = 0; i < Options.size(); i++) {
+
+                    OptionConvert[i] = Options.get(i);
+                    Log.d("String", Options.get(i));
+                }
+
                     questionsOptions = new QuestionsOptions();
 
                     questionsOptions.setQuestion(Question);
-                    questionsOptions.setOptions(Options);
-                    questionsOptions.setCount(count);
+                    questionsOptions.setOptions(OptionConvert);
                     StoreQuestOpt.add(questionsOptions);
 
 
 
 
                 for (QuestionsOptions quest: StoreQuestOpt) {
-                    Log.d("READING CLASS", quest.getQuestion() + ", Options: "+ quest.getOptions() + " Count: " + count);
+                    String[] nerd = quest.getOptions();
+                    for (int i = 0; i < nerd.length; i++) {
+                        Log.d("READING CLASS", quest.getQuestion() + ", Options: "+ nerd[i]);
+                    }
+
                 }
 
-                count = 0;
 
+                Options.clear();
             }
         });
+
 
 
 
@@ -141,41 +164,39 @@ public class Survey extends AppCompatActivity {
 
         builder.show();
     }
+    public void PostSurvey(){
+    String link = "https://interactlyapi.azurewebsites.net/index.html/api/surveys/surveys";
+
+
+    }
 
     public class QuestionsOptions {
 
         String Question;
-        ArrayList<String> Options ;
-        int count;
+        String[] Options ;
 
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-//QuestionsOptions(String Question, ArrayList<String> options){
-       //     this.Question = Question;
-       //     this.options = options;
-      //  }
+        //QuestionsOptions(String Question, ArrayList<String> options){
+        //     this.Question = Question;
+        //     this.options = options;
+        // }
 
         public String getQuestion() {
             return Question;
         }
 
         public void setQuestion(String question) {
-            Question = question;
+            this.Question = question;
         }
 
-        public ArrayList<String> getOptions() {
+        public String[] getOptions() {
             return Options;
         }
 
-        public void setOptions(ArrayList<String> options) {
-            Options = options;
+        public void setOptions(String[] options) {
+            this.Options = options;
         }
     }
+
 
 
 
