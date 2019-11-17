@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class Home extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,9 +75,7 @@ implements NavigationView.OnNavigationItemSelectedListener {
                 startActivity(intent);
                 break;
             case R.id.survey:
-                intent = new Intent(Home.this, Survey.class);
-                intent.putExtra("token", sToken);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Feature coming soon", Toast.LENGTH_SHORT);
             case R.id.polls:
                 intent = new Intent(Home.this, Polls.class);
                 intent.putExtra("token",sToken);
